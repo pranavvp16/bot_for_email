@@ -9,6 +9,6 @@ email.set_content('This mail was directly sent by a python bot')
 with smtplib.SMTP(host='smtp.gmail.com',port=587) as smtp:
     smtp.ehlo()
     smtp.starttls()
-    smtp.login('pranavprajapati586@gmail.com','fhvvelfzfwpmwagp')
+    smtp.login('pranavprajapati586@gmail.com','key')
     smtp.send_message(email)
     print("Sent the mail")
