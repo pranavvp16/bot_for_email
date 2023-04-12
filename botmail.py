@@ -1,4 +1,5 @@
 from tkinter import *
+import customtkinter as ctk
 import smtplib
 from password import keys
 from email.message import EmailMessage
@@ -22,41 +23,73 @@ def email_sender():
             smtp.send_message(email)
             print("Sent the mail")
         
-tk = Tk()
-tk.minsize(width=300, height=400)
+window = ctk.CTk()
+window.minsize(width=450, height=600)
+window.title('EMAIL BOT')
 
-add_label = Label(text="Add emails you want to send one by one: ")
-add_label.pack(padx=5, pady=2)
+add_label = ctk.CTkLabel(master= window, text="Add emails you want to send one by one: ")
+add_label.pack()
 
-email_entry = Entry(width=30)
+email_entry = ctk.CTkEntry(window, width=200, corner_radius=5)
 email_entry.pack()
-
 def refresh():
     reciever = email_entry.get()
     recievers.append(reciever)
     print(recievers)
     email_entry.delete(0, END)
 
-add_button = Button(tk, text='add', command=refresh)
-add_button.pack(padx=5, pady=15)
+button = ctk.CTkButton(window,
+                        corner_radius=10,
+                        command=refresh, 
+                        fg_color="transparent",
+                        hover_color='green4',
+                        text="add",
+                        border_width=1,
+                        border_color='green4'
+                        )
+button.pack(padx= 5, pady=10)
 
-Matter_Label = Label(text="you can write your email here: ")
-Matter_Label.pack()
+add_mail = ctk.CTkLabel(window,
+                        text="Write Your Mail Here: "
+                        )
+add_mail.pack()
 
-Matter_Entry = Text()
-Matter_Entry.pack(padx=20, pady=10)
+change_mail = ctk.CTkTextbox(window, 
+                             corner_radius=10,
+                             border_spacing=1,
+                             font=('Arial', 12),
+                             height=300,
+                             width=400
+                             )
+change_mail.pack()
 
-def content_change():
-    global content
-    content = Matter_Entry
+def assign_mail():
+    global em_content
+    em_content= change_mail
 
-Content_add_Button = Button(text="add", command=content_change)
-Content_add_Button.pack()
+change_button = ctk.CTkButton(window,
+                        corner_radius=10, 
+                        fg_color="transparent",
+                        hover_color='green4',
+                        text="Modify",
+                        border_width=1,
+                        border_color='green4',
+                        command= assign_mail)
+change_button.pack()
 
-warning_label = Label(text='by clicking this button You will send the designated email to everyone you added')
-warning_label.pack(pady=10)
+warning_label = ctk.CTkLabel(window,text='by clicking this button You will send the designated \n email to everyone you added')
+warning_label.pack(pady=20)
 
-send_button = Button(text="send", command=email_sender)
-send_button.pack(padx=5, pady=15)
+send_button = ctk.CTkButton(window,
+                        corner_radius=10, 
+                        fg_color="transparent",
+                        hover_color='green4',
+                        text="send",
+                        border_width=1,
+                        border_color='green4',
+                        command= email_sender
+                        )
 
-tk.mainloop()
+send_button.pack()
+
+window.mainloop()
