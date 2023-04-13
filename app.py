@@ -2,7 +2,6 @@ from tkinter import *
 import customtkinter as ctk
 from helper import email_sender
 from functools import partial
-email_dictionary = {}
 recievers = []
 em_content = ''
 
@@ -23,7 +22,7 @@ def refresh():
 
 
 # add list of recievers in dictionary
-email_dictionary["recievers"] = recievers
+#email_dictionary["recievers"] = recievers
 
 button = ctk.CTkButton(window,
                        corner_radius=10,
@@ -53,11 +52,10 @@ change_mail.pack()
 
 def assign_mail():
     global em_content
-    em_content= change_mail
-
-
-# Add email content to dictionary
-email_dictionary["em_content"] = em_content
+    em_content = change_mail.get(1.0, "end-1c")
+    print(em_content)
+    # Add email content to dictionary
+    #email_dictionary["em_content"] = em_content
 
 change_button = ctk.CTkButton(window,
                               corner_radius=10,
@@ -81,8 +79,10 @@ send_button = ctk.CTkButton(window,
                             border_width=1,
                             border_color='green4',
                             # partial allows to run callable object with parameters
-                            command=partial(email_sender,email_dictionary)
+                            command=partial(email_sender)
                         )
 
 send_button.pack()
+
+
 window.mainloop()
