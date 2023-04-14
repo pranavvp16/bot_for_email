@@ -2,7 +2,6 @@ from password import keys
 from email.message import EmailMessage
 import smtplib
 
-
 def email_sender(dict):
 
     for i in dict["recievers"]:
